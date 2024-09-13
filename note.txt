@@ -1,5 +1,2 @@
-npm i -D allure-playwright //to install Allure reporting 
-npx playwright test --reporter=line,allure-playwright   //to create results
-
-allure generate ./allure-results --clean // to generate report
-allure open ./allure-report //to open report
+ npx cucumber-js //to generate codes
+ 
