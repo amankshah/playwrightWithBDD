@@ -9,11 +9,7 @@ Given(
   "a login to Ecommerce application with {string} and {string}",
   { timeout: 10000 }, // Set timeout to 10 seconds
   async function (username, password) {
-    this.browser = await chromium.launch(); // Launch the browser
-    this.context = await this.browser.newContext(); // Create a new browser context
-    this.page = await this.context.newPage(); // Create a new page
-
-    this.poManager = new POManager(this.page); // this keyword is coming from world constructor of the cucumber world class
+    // this keyword is coming from world constructor of the cucumber world class
     this.loginPage = this.poManager.getLoginPage();
 
     this.UserEmail = username;
