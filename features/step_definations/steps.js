@@ -6,46 +6,52 @@ const dataSet = JSON.parse(
 );
 
 Given(
-  "a login to Ecommerce application with {username} and {password}",
-  async function (string, string2) {
-    const browser = chromium.launch();
-    const context = browser.newContext();
-    const page = context.newPage();
+  "a login to Ecommerce application with {string} and {string}",
+  { timeout: 10000 }, // Set timeout to 10 seconds
+  async function (username, password) {
+    this.browser = await chromium.launch(); // Launch the browser
+    this.context = await this.browser.newContext(); // Create a new browser context
+    this.page = await this.context.newPage(); // Create a new page
 
-    this.poManager = new POManager(page); // this keyword is coming from world constructor of the cucumber world class
-    const loginPage = this.poManager.getLoginPage();
+    this.poManager = new POManager(this.page); // this keyword is coming from world constructor of the cucumber world class
+    this.loginPage = this.poManager.getLoginPage();
 
-    const UserEmail = dataSet.username;
-    const UserPassword = dataSet.password;
-    const ProductToBePurchased = dataSet.product;
+    this.UserEmail = username;
+    this.UserPassword = password;
 
-    await loginPage.goTo();
-    await loginPage.ValidLogin(UserEmail, UserPassword);
+    await this.loginPage.goTo();
+    await this.loginPage.ValidLogin(this.UserEmail, this.UserPassword);
   }
 );
 
-When("Add {string} to Cart", async function (string) {
-  const dashboardPage = this.poManager.getDashboardPage();
-  await dashboardPage.searchProductAndAddToCart(ProductToBePurchased);
-  await dashboardPage.clickCartButton();
+When("Add {string} to Cart", async function (product) {
+  this.dashboardPage = this.poManager.getDashboardPage();
+
+  await this.dashboardPage.searchProductAndAddToCart(product);
+  await this.dashboardPage.clickCartButton();
 });
 
-Then("Verify {string} is displayed in the Cart", async function (string) {
-  const cartPage = this.poManager.getCartPage();
-  await cartPage.VerifyProductIsDisplayed(ProductToBePurchased);
-  await cartPage.Checkout();
-});
+Then(
+  "Verify {string} is displayed in the Cart",
+  async function (ProductToBePurchased) {
+    this.cartPage = this.poManager.getCartPage();
+    await this.cartPage.VerifyProductIsDisplayed(ProductToBePurchased);
+    await this.cartPage.Checkout();
+  }
+);
 
 When("Enter Valid details and place the order", async function () {
-  const ordersReviewPage = this.poManager.getOrdersReviewPage();
-  await ordersReviewPage.searchCountryAndSelect("ind", "India");
-  const orderId = await ordersReviewPage.SubmitAndGetOrderId();
-  console.log(orderId);
+  this.ordersReviewPage = this.poManager.getOrdersReviewPage();
+  await this.ordersReviewPage.searchCountryAndSelect("ind", "India");
+  this.orderId = await this.ordersReviewPage.SubmitAndGetOrderId();
+  console.log(this.orderId);
 });
 
 Then("Verify order is present in the orderHistoryPage", async function () {
-  await dashboardPage.navigateToOrders();
-  const ordersHistoryPage = this.poManager.getOrdersHistoryPage();
-  await ordersHistoryPage.searchOrderAndSelect(orderId);
-  expect(orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
+  await this.dashboardPage.navigateToOrders();
+  this.ordersHistoryPage = this.poManager.getOrdersHistoryPage();
+  await this.ordersHistoryPage.searchOrderAndSelect(this.orderId);
+  expect(
+    this.orderId.includes(await this.ordersHistoryPage.getOrderId())
+  ).toBeTruthy();
 });
