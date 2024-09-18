@@ -1,2 +1,5 @@
  npx cucumber-js //to generate codes
  
+
+ //to run a single feature file 
+ npx cucumber-js features\errorValidation.feature
