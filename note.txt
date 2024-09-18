@@ -6,3 +6,6 @@
 
  //running test cases based on tags 
  npx cucumber-js --tags "@Regression"
+
+// //to run a 2 senarious parallel feature file 
+ npx cucumber-js features\errorValidation.feature --parallel 2   --exit 
