@@ -40,4 +40,4 @@ class OrdersHistoryPage {
   }
 }
 
-export default OrdersHistoryPage;
+module.exports = OrdersHistoryPage;

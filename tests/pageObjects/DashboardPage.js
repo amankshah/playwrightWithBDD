@@ -75,4 +75,4 @@ class DashboardPage {
   }
 }
 
-export default DashboardPage;
+module.exports = DashboardPage;

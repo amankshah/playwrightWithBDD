@@ -36,4 +36,4 @@ class OrdersReviewPage {
     return await this.orderId.textContent();
   }
 }
-export default OrdersReviewPage;
+module.exports = OrdersReviewPage;

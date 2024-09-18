@@ -1,8 +1,11 @@
-import LoginPage from "./LoginPage.js";
-import DashboardPage from "./DashboardPage.js";
-import OrdersHistoryPage from "./OrdersHistoryPage.js";
-import OrdersReviewPage from "./OrdersReviewPage.js";
-import CartPage from "./CartPage.js";
+// import { json } from "stream/consumers";
+
+//convert above code in commonjs
+const LoginPage = require("./LoginPage.js");
+const DashboardPage = require("./DashboardPage.js");
+const OrdersHistoryPage = require("./OrdersHistoryPage.js");
+const OrdersReviewPage = require("./OrdersReviewPage.js");
+const CartPage = require("./CartPage.js");
 
 class POManager {
   constructor(page) {
@@ -35,4 +38,11 @@ class POManager {
   }
 }
 
-export default POManager;
+
+
+// POManager.js
+
+// export default POManager;
+// export POmanger in common js
+
+module.exports = POManager;

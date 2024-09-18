@@ -26,4 +26,4 @@ class CartPage {
     return this.page.locator("h3:has-text('" + productName + "')");
   }
 }
-export default CartPage;
+module.exports = CartPage;
