@@ -9,3 +9,8 @@
 
 // //to run a 2 senarious parallel feature file 
  npx cucumber-js features\errorValidation.feature --parallel 2   --exit 
+
+
+ //to generate html report 
+  npx cucumber-js features\errorValidation.feature --parallel 2   --exit --format html:cucumber-report.html
+  
