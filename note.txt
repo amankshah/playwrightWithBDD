@@ -3,3 +3,6 @@
 
  //to run a single feature file 
  npx cucumber-js features\errorValidation.feature
+
+ //running test cases based on tags 
+ npx cucumber-js --tags "@Regression"
