@@ -16,6 +16,13 @@ Before(async function () {
   this.poManager = new POManager(this.page);
 });
 
+Before({ tags: "@Regression" }, async function () {
+  this.browser = await chromium.launch(); // Launch the browser
+  this.context = await this.browser.newContext(); // Create a new browser context
+  this.page = await this.context.newPage(); // Create a new page
+
+  this.poManager = new POManager(this.page);
+});
 After(async function ({ TestInfo, result }) {
   console.log(" Status: " + result.status);
 
